@@ -1,5 +1,19 @@
+# Welcome!
 
-# Contributing
+This is the repository for the workshop "Introduction to Quantum Machine Learning". We are putting the finishing touches on the project that will be used in the workshop; please check back on or after **November 7th** to get the latest version of the project.
+
+## While you're waiting
+
+To work on this tutorial, you'll need to install the [Quantum Development Kit](https://docs.microsoft.com/quantum), available for Windows 10, macOS, and for Linux.
+Please see the [install guide for the Quantum Development Kit](https://docs.microsoft.com/quantum/install-guide/) for the detailed instructions. We recommend that you use Visual Studio 2017 or Visual Studio Code.
+
+To improve your experience in the workshop, we suggest you to go through the BasicGates kata from the [Quantum Katas](https://github.com/Microsoft/QuantumKatas) project. 
+It teaches you the basic gates used in quantum computing and helps you get more comfortable with Q#. 
+Superposition and Measurement katas are the next best introductory topics.
+
+---
+
+## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
