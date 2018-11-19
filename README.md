@@ -61,9 +61,14 @@ As a stretch goal, try to implement the classical harness and the quantum classi
 
 ## Useful Links
 
-To improve your experience in the workshop, we suggest you to go through the BasicGates kata from the [Quantum Katas](https://github.com/Microsoft/QuantumKatas) project. 
+* You can find Q# language quick reference [here](./qsharp-quick-reference.pdf).
+
+
+* To improve your experience in the workshop, we suggest you to go through the BasicGates kata from the [Quantum Katas](https://github.com/Microsoft/QuantumKatas) project. 
 It teaches you the basic gates used in quantum computing and helps you get more comfortable with Q#. 
-Superposition and Measurement katas are the next best introductory topics.
+Superposition and Measurement katas are the next best follow-up topics.
+
+* You can find the slides used in the introductory part of the workshop [here](./QuantumPerceptron.pptx).
 
 ---
 
