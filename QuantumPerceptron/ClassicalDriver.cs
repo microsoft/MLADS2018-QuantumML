@@ -22,12 +22,12 @@ namespace Microsoft.Quantum.MachineLearning
             double s = 0;
             using (var qsim = new QuantumSimulator(true, 123))
             {
-                s = QuantumClassifier_SuccessRate_Easy.Run(qsim, angle, new QArray<double>(data), new QArray<long>(labels)).Result;
+                s = QuantumClassifier_SuccessRate.Run(qsim, angle, new QArray<double>(data), new QArray<long>(labels)).Result;
             }
             return s;
         }
 
-        static void SaveAsCsv(double[] data, int[] labels)
+        static void SaveAsCsv(double[] data, long[] labels)
         {
             string fileContents = "Label,Data" + Environment.NewLine;
             for (int i = 0; i < data.Length; ++i)
