@@ -37,25 +37,70 @@ namespace Microsoft.Quantum.MachineLearning
             System.IO.File.WriteAllText("trainingData.csv", fileContents);
         }
 
-        static void Main(string[] args)
+        /// <summary>
+        /// Create a data set in the range 0-2*PI with a certain gap at a certain central angle.
+        /// Note that two gaps are created as the data set is simetrical around the circle.
+        /// </summary>
+        /// <param name="size">Number of random data points</param>
+        /// <param name="center">Where to create the gap</param>
+        /// <param name="gap">Width of gap</param>
+        /// <returns></returns>
+        static double[] CreateSeparableDataset(int size = 200, double center = 2.0, double gap = 0.2)
         {
-            // Larger dataset size gives more precise training result but slower training process
-            int datasetSize = 200;
-            double[] data = new double[datasetSize];
-            long[] labels = new long[datasetSize];
-            // Prepare a perfectly separable training dataset (with a margin separating the two classes)
-            double separationAngle = 2.0;
-            double correctAngle = separationAngle - Math.PI / 2;
+            double[] data = new double[size];
             Random rnd = new Random(123);
-            double margin = 0.1;
-            for (int i = 0; i < datasetSize; ++i)
+
+            double max = Math.PI;
+
+            // these variables are used to create the gap
+            double lowerMax = center - gap / 2.0;
+            double upperScale = (max - center - gap / 2.0) / (max - center);
+
+            for (int i = 0; i < size; i++)
             {
-                // separate data classes by a margin
-                data[i] = rnd.NextDouble() * Math.PI * (1 - margin) - Math.PI * (1 - margin) / 2 + correctAngle;
+                // 1. generate all the numbers
+                data[i] = rnd.NextDouble() * max;
+
+                // 2. create the gap
+                if (data[i] <= center)
+                {
+                    // this is the simple case, just re-scale proportionally (3-simple rule)
+                    data[i] *= lowerMax / center;
+                }
+                else
+                {
+                    // slightly more complicated: invert, 3-simple rule to rescale, invert again
+                    data[i] = max - data[i];
+                    data[i] *= upperScale;
+                    data[i] = max - data[i];
+                }
+
+                // 3. spread to the full circle (2*pi) -- we'll have two separations
                 if (rnd.Next(2) == 1)
                 {
                     data[i] += Math.PI;
                 }
+            }
+
+            return data;
+        }
+
+        static void Main(string[] args)
+        {
+            // Larger dataset size gives more precise training result but slower training process
+            int datasetSize = 200;
+
+            // Prepare a perfectly separable training dataset
+            double separationAngle = 2.0;
+            double correctAngle = separationAngle - Math.PI / 2;
+            double margin = 0.1;
+
+            double[] data = CreateSeparableDataset(datasetSize, separationAngle, margin);
+
+            // assign labels to training data
+            long[] labels = new long[datasetSize];
+            for (int i = 0; i < datasetSize; ++i)
+            {
                 labels[i] = (data[i] > separationAngle && data[i] < separationAngle + Math.PI ? 1 : 0);
             }
 
