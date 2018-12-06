@@ -38,44 +38,44 @@ namespace Microsoft.Quantum.MachineLearning
         }
 
         /// <summary>
-        /// Create a data set in the range 0-2*PI with a certain gap at a certain central angle.
-        /// Note that two gaps are created as the data set is simetrical around the circle.
+        /// Create a data set in the range [0, 2π] with a gap of the given size at the given central angle
+        /// and a symmetrical gap at the angle π + the given central angle.
         /// </summary>
         /// <param name="size">Number of random data points</param>
         /// <param name="center">Where to create the gap</param>
         /// <param name="gap">Width of gap</param>
         /// <returns></returns>
-        static double[] CreateSeparableDataset(int size = 200, double center = 2.0, double gap = 0.2)
+        static double[] CreateSeparableDataset(int size, double center, double gap)
         {
             double[] data = new double[size];
             Random rnd = new Random(123);
 
             double max = Math.PI;
 
-            // these variables are used to create the gap
+            // These variables are used to create the gap
             double lowerMax = center - gap / 2.0;
             double upperScale = (max - center - gap / 2.0) / (max - center);
 
             for (int i = 0; i < size; i++)
             {
-                // 1. generate all the numbers
+                // 1. Generate a random number without taking the gap into account
                 data[i] = rnd.NextDouble() * max;
 
-                // 2. create the gap
+                // 2. Shift it to create the gap
                 if (data[i] <= center)
                 {
-                    // this is the simple case, just re-scale proportionally (3-simple rule)
+                    // This is the simple case, just re-scale proportionally (3-simple rule)
                     data[i] *= lowerMax / center;
                 }
                 else
                 {
-                    // slightly more complicated: invert, 3-simple rule to rescale, invert again
+                    // Slightly more complicated: invert, 3-simple rule to rescale, invert again
                     data[i] = max - data[i];
                     data[i] *= upperScale;
                     data[i] = max - data[i];
                 }
 
-                // 3. spread to the full circle (2*pi) -- we'll have two separations
+                // 3. Spread to the full circle (2π) -- we'll have two gaps
                 if (rnd.Next(2) == 1)
                 {
                     data[i] += Math.PI;
@@ -97,7 +97,7 @@ namespace Microsoft.Quantum.MachineLearning
 
             double[] data = CreateSeparableDataset(datasetSize, separationAngle, margin);
 
-            // assign labels to training data
+            // Assign labels to training data
             long[] labels = new long[datasetSize];
             for (int i = 0; i < datasetSize; ++i)
             {
