@@ -22,6 +22,7 @@ namespace Microsoft.Quantum.MachineLearning
             double s = 0;
             using (var qsim = new QuantumSimulator(true, 123))
             {
+                // Change the following line to call QuantumClassifier_SuccessRate_Easy.Run to run pre-written model training code
                 s = QuantumClassifier_SuccessRate.Run(qsim, angle, new QArray<double>(data), new QArray<long>(labels)).Result;
             }
             return s;
