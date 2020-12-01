@@ -1,4 +1,6 @@
-﻿# Welcome!
+***This repository has been archived. Please refer to [the tutorial on quantum classification with Q#](https://github.com/microsoft/QuantumKatas/tree/main/tutorials/QuantumClassification) for the latest version of the tutorial.***
+
+# Welcome!
 
 This repository contains the materials for the "Introduction to Quantum Machine Learning" workshop. 
 
